@@ -1,6 +1,9 @@
+// index.js
 
-var root=document.getElementById('root')
+import Header from './header.js'
+import Sidebar from './sidebar.js'
+import Content from './content.js'
 
-var node=document.createElement('div')
-node.innerHTML='header'
-root.append(node)
+new Header()
+new Sidebar()
+new Content()
