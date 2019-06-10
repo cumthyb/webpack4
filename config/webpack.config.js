@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
+  devtool:'none',
   entry: {
     main: './src/index.js'
   },
@@ -15,6 +16,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,// 第三方包已经转换过了，不必在此转换
+        use:  'babel-loader'
+      },
       {
         test: /\.(png|jpg|jpeg|bmp|ico)$/i,
         include: [
@@ -30,7 +36,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(eot|ttf|woff|svg|js)$/i,
+        test: /\.(eot|ttf|woff|svg)$/i,
         include: [
           path.resolve(__dirname, '../static/font') //src目录下可能有svg资源，在此特别设置inclule为了只打包与字体图标相关的svg资源
         ],
@@ -49,17 +55,6 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
           },
           'css-loader'
-        ]
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          'css-loader',
-          "postcss-loader",
-          'less-loader'
         ]
       },
     ],
